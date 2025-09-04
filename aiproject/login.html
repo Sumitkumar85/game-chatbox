@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #111, #333);
+            color: #0ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: rgba(34, 34, 34, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            text-align: center;
+            width: 300px;
+        }
+        .login-container h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #0ff;
+        }
+        .login-container i {
+            font-size: 3rem;
+            color: #0ff;
+            margin-bottom: 10px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #0ff;
+            border-radius: 6px;
+            background: #000;
+            color: #0ff;
+            font-size: 1rem;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: #0cc;
+            box-shadow: 0 0 10px #0cc;
+        }
+        button {
+            padding: 12px 20px;
+            border: none;
+            background: linear-gradient(45deg, #0ff, #0cc);
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: transform 0.2s, background 0.3s;
+        }
+        button:hover {
+            background: linear-gradient(45deg, #0cc, #0ff);
+            transform: scale(1.05);
+        }
+        .forgot-password {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .forgot-password a {
+            color: #0ff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: #0ff;
+            width: 300px;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #0ff;
+            border-radius: 6px;
+            background: #000;
+            color: #0ff;
+        }
+        .modal-content button {
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #0ff, #0cc);
+            border: none;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+        .modal-content button:hover {
+            background: linear-gradient(45deg, #0cc, #0ff);
+        }
+        .close-modal {
+            margin-top: 10px;
+            color: #0ff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <i class="fas fa-user-circle"></i>
+        <h1>Login</h1>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <div class="forgot-password">
+            <a onclick="openModal()">Forgot Password?</a>
+        </div>
+    </div>
+    <div class="modal" id="forgot-password-modal">
+        <div class="modal-content">
+            <h2>Reset Password</h2>
+            <p>Enter your email to reset your password:</p>
+            <input type="email" id="reset-email" placeholder="Enter your email">
+            <button onclick="resetPassword()">Submit</button>
+            <div class="close-modal" onclick="closeModal()">Cancel</div>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'admin' && password === 'password') {
+                localStorage.setItem('authenticated', 'true');
+                window.location.href = 'index.html';
+            } else {
+                alert('Invalid credentials');
+            }
+        }
+
+        function openModal() {
+            document.getElementById('forgot-password-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('forgot-password-modal').style.display = 'none';
+        }
+
+        function resetPassword() {
+            const email = document.getElementById('reset-email').value;
+            if (email) {
+                alert("Password reset link sent to ${email}");
+                closeModal();
+            } else {
+                alert("Please enter a valid email address");
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+</html>
